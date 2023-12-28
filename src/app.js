@@ -13,17 +13,21 @@ const server = http.createServer((req, res) => {
       const value2 = obj.num2;
 
       // Write code here to calculate power of a number
-      if(value1 <= 0 || value2 < 0){
-        res.writeHead(404,{"Content-Type":"text/plain"});
+      if(value1 <= 0){
+        res.writeHead(404, { "Content-Type":"text/plain" });
         res.end("The operation cannot be performed");
-      } else{
-        res.writeHead(200,{"Content-Type":"text/plain"});
-        res.end(Math.pow(value1,value2));
+      }else if(
+        value2 >= 0 &&
+        Number.isInteger(value1) &&
+        Number.isInteger(value2)
+      ){
+        res.writeHead(200, { "Content-Type":"text/plain" });
+        res.end(`The result is ${Math.pow(value1,value2)}`);
+      }else{
+        res.writeHead(400, { "Content-Type": "text/plain" })
       }
-      
     });
   }
-});
-
+})
 module.exports = server;
       
